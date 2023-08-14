@@ -2,15 +2,16 @@
 
 ## Intro
 
-This project aims at learning, so far using one of the most popular frameworks for backend development in Javascript: Node.js.
+This project aims at learning, so far using one of the most popular frameworks for backend development in Javascript: Node.js. For the frontend we basically used html, css and pure javascript, as the focus was really on building and consuming the API built in Node.
 
 ## Enviroment
 
-So far we have used three basic libraries for development:
+So far we have used four basic libraries for development:
 
 - dotenv versão 16.3.1;
 - express versão 4.18.2;
 - mysql: versão 3.6.0
+- cors: 2.8.5
 
 ## Running the Project
 
@@ -30,3 +31,4 @@ npm start
 ```
 
 6. The API will be executed through the port informed in the .env file, now just type in the web browser of your choice the following url: http://localhost:{port in execution}/tasks.
+6. To use the application through the basic front end, just enter the frontend directory and open the index.html file in your preferred browser
