@@ -24,6 +24,14 @@ const addTask = async (event) => {
     inputTask.value = '';
 }
 
+const deleteTask = async (id) => {
+    await fetch(`http://localhost:3333/tasks/${id}`, {
+        method: 'delete',
+    });
+
+    loadTasks();
+}
+
 const formatDate = (dateUTC) => {
     const options = { dateStyle: 'long', timeStyle: 'short' };
     const date = new Date(dateUTC).toLocaleString('pt-BR', options);
@@ -75,6 +83,8 @@ const createRow = (task) => {
 
     editButton.classList.add('btn-action');
     deleteButton.classList.add('btn-action');
+
+    deleteButton.addEventListener('click', () => deleteTask(id));
 
     tdStatus.appendChild(select);
 
