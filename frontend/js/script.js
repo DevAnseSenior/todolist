@@ -1,10 +1,27 @@
 const tbody = document.querySelector('tbody');
+const addForm = document.querySelector('.add-form');
+const inputTask = document.querySelector('.input-task');
 
 const fetchTasks = async () => {
     const response = await fetch('http://localhost:3333/tasks');
     const tasks = await response.json();
 
     return tasks;
+}
+
+const addTask = async (event) => {
+    event.preventDefault();
+
+    const task = { title: inputTask.value }
+
+    await fetch('http://localhost:3333/tasks', {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(task),
+    });
+
+    loadTasks();
+    inputTask.value = '';
 }
 
 const createElement = (tag, innerText = '', innerHTML = '') =>  {
@@ -32,13 +49,6 @@ const createSelect = (value) => {
     select.value = value;
 
     return select;
-}
-
-const task = {
-    "id": "0000",
-    "title": "teste",
-    "created_at": "00 de Janeiro de 2023 00:14",
-    "status": "concluida"
 }
 
 const createRow = (task) => {
@@ -69,7 +79,19 @@ const createRow = (task) => {
     tr.appendChild(tdStatus);
     tr.appendChild(tdActions);
 
-    tbody.appendChild(tr);
+    return tr;
 }
 
-createRow(task);
+const loadTasks = async () => {
+    const tasks = await fetchTasks();
+
+    tbody.innerHTML = '';
+
+    tasks.forEach(task => {
+        const tr = createRow(task);
+        tbody.appendChild(tr);
+    });
+}
+
+addForm.addEventListener('submit', addTask);
+loadTasks();
